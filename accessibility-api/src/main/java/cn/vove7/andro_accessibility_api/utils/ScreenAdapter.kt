@@ -52,18 +52,9 @@ object ScreenAdapter {
 
 
     fun scalePoints(points: Array<Pair<Int, Int>>): Array<Pair<Float, Float>> {
-
-        val ps = Array(points.size) { Pair(0f, 0f) }
-
-        val index = 0
-        points.forEach {
-            val x =
-                scaleX(it.first)
-            val y =
-                scaleY(it.second)
-            ps[index] = Pair(x, y)
-        }
-        return ps
+        return points.map { point ->
+            Pair(scaleX(point.first), scaleY(point.second))
+        }.toTypedArray()
     }
 
     fun scaleX(x: Int): Float = scaleX(x.toFloat())
@@ -106,4 +97,3 @@ class AdapterRectF : RectF {
         )
     }
 }
-

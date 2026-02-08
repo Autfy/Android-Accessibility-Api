@@ -4,7 +4,7 @@ package cn.vove7.andro_accessibility_api
  * # AppScope
  *
  * @property packageName String  app pkg
- * @property pageName String  class name of Activity or Dialog
+ * @property pageName String  class name of Activity or Dialog (empty means any page)
  * @constructor
  */
 data class AppScope(

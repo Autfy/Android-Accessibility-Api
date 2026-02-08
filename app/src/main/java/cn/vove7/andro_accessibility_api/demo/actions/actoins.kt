@@ -22,7 +22,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 /**
- * # actoins
+ * # actions
  *
  * Created on 2020/6/10
  * @author Vove
