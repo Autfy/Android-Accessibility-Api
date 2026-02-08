@@ -143,7 +143,12 @@ class WaitAppAction : Action {
         delay(1000)
 
         val targetApp = "com.android.chrome"
-        act.startActivity(act.packageManager.getLaunchIntentForPackage(targetApp))
+        val launchIntent = act.packageManager.getLaunchIntentForPackage(targetApp)
+        if (launchIntent == null) {
+            toast("未找到应用: $targetApp")
+            return
+        }
+        act.startActivity(launchIntent)
 
         if (
             waitForApp(targetApp, 5000).also {

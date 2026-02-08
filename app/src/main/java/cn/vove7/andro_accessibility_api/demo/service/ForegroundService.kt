@@ -46,7 +46,12 @@ class ForegroundService : Service() {
         setContentText("输出布局 on logcat")
         val printIntent = Intent(this@ForegroundService, ForegroundService::class.java)
         printIntent.action = ACTION_PRINT_LAYOUT
-        val pi = PendingIntent.getService(this@ForegroundService, 0, printIntent, 0)
+        val pendingFlags = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        } else {
+            PendingIntent.FLAG_UPDATE_CURRENT
+        }
+        val pi = PendingIntent.getService(this@ForegroundService, 0, printIntent, pendingFlags)
 
         setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
         setSmallIcon(R.mipmap.ic_launcher_round)
