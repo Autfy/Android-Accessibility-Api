@@ -10,7 +10,10 @@ import cn.vove7.andro_accessibility_api.utils.NeedAccessibilityException
 import cn.vove7.andro_accessibility_api.utils.jumpAccessibilityServiceSettings
 import cn.vove7.andro_accessibility_api.utils.whileWaitTime
 import cn.vove7.andro_accessibility_api.viewnode.ViewNode
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import java.lang.Thread.sleep
 import kotlin.math.min
@@ -53,6 +56,7 @@ abstract class AccessibilityApi : AccessibilityService(), BaseServiceApi {
         if(isEnableGestureService() && this::class.java == GESTURE_SERVICE_CLS) {
             gestureService = null
         }
+        scope.cancel()
     }
 
     /**
@@ -115,10 +119,12 @@ abstract class AccessibilityApi : AccessibilityService(), BaseServiceApi {
     open fun onPageUpdate(currentScope: AppScope) {}
 
     private fun pageIsView(pageName: String): Boolean = try {
-        Class.forName(pageName) is View
+        View::class.java.isAssignableFrom(Class.forName(pageName))
     } catch (e: ClassNotFoundException) {
         false
     }
+
+    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
     /**
      * @param event AccessibilityEvent?
@@ -133,7 +139,7 @@ abstract class AccessibilityApi : AccessibilityService(), BaseServiceApi {
                 val classNameStr = event.className
                 val pkg = event.packageName as String?
                 if (!classNameStr.isNullOrBlank() && pkg != null) {
-                    GlobalScope.launch {
+                    scope.launch {
                         updateCurrentApp(pkg, classNameStr.toString())
                     }
                 }
