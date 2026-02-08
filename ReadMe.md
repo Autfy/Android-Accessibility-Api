@@ -7,6 +7,12 @@
 [TOC]
 
 
+## 快速开始建议
+
+1. 先看 **基础导航** 与 **视图检索**，熟悉常用操作与查找方式。
+2. 再看 **使用** 章节，理解基础服务与手势服务的拆分设计。
+3. 最后对照 `app` 模块示例应用（`app/src/main/java/cn/vove7/andro_accessibility_api/demo`），结合实际配置验证服务与 API 的使用。
+
 
 ## 基础导航
 
@@ -550,6 +556,5 @@ AccessibilityApi.apply {
 
 - [view_finder_api.kt](accessibility-api/src/main/java/cn/vove7/andro_accessibility_api/api/view_finder_api.kt)
 - [gesture_api.kt](accessibility-api/src/main/java/cn/vove7/andro_accessibility_api/api/gesture_api.kt)
-- [nav_api.kt](accessibility-api/src/main/java/cn/vove7/andro_accessibility_api/api/nav_api.kt)
 - [nav_api.kt](accessibility-api/src/main/java/cn/vove7/andro_accessibility_api/api/nav_api.kt)
 - [ViewNode](accessibility-api/src/main/java/cn/vove7/andro_accessibility_api/viewnode/ViewNode.kt)
